@@ -1,6 +1,6 @@
 #!/bin/sh
 
-files="*.[c,h]"
+files="*.*"
 flags=""
 usage="
 Usage: $0 [-i] [-n] [-f S] searchstring\n\n
@@ -9,7 +9,7 @@ Usage: $0 [-i] [-n] [-f S] searchstring\n\n
 
   -i, ignores the search string case\n
   -n, displays line numbers\n
-  -f, which files to search (Default: \"*.[c,h]\" \n
+  -f, which files to search (For .c and .h: \"*.[c,h]\" \n
   -h, displays this message\n
 "
 
