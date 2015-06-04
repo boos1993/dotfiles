@@ -1,4 +1,10 @@
+set number
 set relativenumber
+set nowrap
+set autochdir
+
+cnoremap sudow w !sudo tee % >/dev/null
+
 colorscheme evening
 
 " copy and paste
