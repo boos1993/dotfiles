@@ -1,0 +1,1 @@
+alias grepr='~/scripts/grepr.sh'
