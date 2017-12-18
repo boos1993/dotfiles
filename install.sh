@@ -6,22 +6,22 @@ VIMRC_FILE=~/.vimrc
 GITCONFIG_FILE=~/.gitconfig
 GITIGNORE_FILE=~/.gitignore
 
-
-
-
 # Replaces a config constant
 function set_config {
-    sudo sed -i "s/^\($1\s*=\s*\).*\$/\1$2/" $3
-    }
+	file=$1
+	old_value=$2
+	new_value=$3
+	sed -i "s/${old_value}/${new_value}/g" $file
+}
 
 result=${PWD}
 printf '%s' 'Installing Files...'
 echo
 
 echo -n "Git Full Name: "
-read GIT_GLOBAL_USER_NAME
+read IN_GIT_GLOBAL_USER_NAME
 echo -n "Git Email: "
-read GIT_GLOBAL_USER_EMAIL
+read IN_GIT_GLOBAL_USER_EMAIL
 echo
 
 # user aliases
@@ -32,16 +32,17 @@ cp -r  scripts $SCRIPTS_FILE
 
 # vim
 cp ./vim/.vimrc $VIMRC_FILE
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
 
 # git
 cp ./git/.gitconfig $GITCONFIG_FILE
-
-set_config "GIT_GLOBAL_USER_NAME" $GIT_GLOBAL_USER_NAME $GITCONFIG_FILE
-set_config "GIT_GLOBAL_USER_EMAIL" $GIT_GLOBAL_USER_EMAIL $GITCONFIG_FILE
+set_config "$GITCONFIG_FILE" "GIT_GLOBAL_USER_NAME" "$IN_GIT_GLOBAL_USER_NAME"
+set_config "$GITCONFIG_FILE" "GIT_GLOBAL_USER_EMAIL" "$IN_GIT_GLOBAL_USER_EMAIL"
 
 cp ./git/.gitignore $GITIGNORE_FILE
 
 # Installs
-apt-get install -y git vim
+sudo apt-get install -y git vim
 
 printf '%s\n' 'Done'
