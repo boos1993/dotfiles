@@ -18,10 +18,9 @@ result=${PWD}
 printf '%s' 'Installing Files...'
 echo
 
-echo -n "Git Full Name: "
-read IN_GIT_GLOBAL_USER_NAME
-echo -n "Git Email: "
-read IN_GIT_GLOBAL_USER_EMAIL
+
+read -p "Git Full Name: " -i "$(git config user.name)" -e IN_GIT_GLOBAL_USER_NAME
+read -p "Git Email: " -i "$(git config user.email)" -e IN_GIT_GLOBAL_USER_EMAIL
 echo
 
 # user aliases
@@ -34,6 +33,7 @@ cp -r  scripts $SCRIPTS_FILE
 cp ./vim/.vimrc $VIMRC_FILE
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
+vim 'https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/conque/conque_2.3.vmb' -c ':so % | q'
 
 # git
 cp ./git/.gitconfig $GITCONFIG_FILE
@@ -43,6 +43,5 @@ set_config "$GITCONFIG_FILE" "GIT_GLOBAL_USER_EMAIL" "$IN_GIT_GLOBAL_USER_EMAIL"
 cp ./git/.gitignore $GITIGNORE_FILE
 
 # Installs
-sudo apt-get install -y git vim
-
+sudo apt-get install -y git vim exuberant-ctags
 printf '%s\n' 'Done'
